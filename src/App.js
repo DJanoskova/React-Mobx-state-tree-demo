@@ -1,28 +1,32 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { observer, inject } from 'mobx-react';
+import PropTypes from 'prop-types';
+
+import TodoForm from './components/TodoForm';
+import TodoDetail from './components/TodoDetail';
 
 class App extends Component {
   render() {
+    const { todoStore } = this.props.store;
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <div>
+          <h3 className="subtitle">Make a new To do</h3>
+          <TodoForm todoStore={todoStore} />
+        </div>
+        <div className="card-container">
+          {todoStore.todos.map((todo, i) => (
+            <TodoDetail todo={todo} key={i} />
+          ))}
+        </div>
       </div>
     );
   }
 }
 
-export default App;
+App.propTypes = {
+  store: PropTypes.object
+};
+
+export default inject('store')(observer(App));
