@@ -1,0 +1,52 @@
+body {
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    padding: 30px;
+}
+
+input {
+    border: 1px #eaeaea solid;
+    padding: 4px 8px;
+}
+
+input + input {
+    margin-left: 5px;
+}
+
+input + button {
+    margin-left: 5px;
+}
+
+form input {
+    float: left;
+}
+
+input, button, .card {
+    border-radius: 5px;
+}
+
+button {
+    height: 23px;
+    background: #3e7de1;
+    color: #ffffff;
+    cursor: pointer;
+    border: none;
+}
+
+.card-container {
+    margin: 0 -10px 0 -10px;
+    clear: both;
+}
+
+.card {
+    border: 1px #eaeaea solid;
+    float: left;
+    margin: 10px;
+    width: 300px;
+    padding: 20px;
+}
+
+h4 {
+    margin-top: 0;
+    margin-bottom: 4px;
+}

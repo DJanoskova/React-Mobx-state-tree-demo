@@ -5,11 +5,14 @@ import makeInspectable from 'mobx-devtools-mst';
 
 import App from './App';
 
+import './assets/main.css';
+
 import store from './store';
+
 makeInspectable(store);
 
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider {...store}>
     <App />
   </Provider>, document.getElementById('root')
 );

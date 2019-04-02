@@ -10,9 +10,11 @@ const TodoDetail = ({todo}) => {
           {todo.details}
         </div>
       </div>
+      <br />
       <div className="status" >
         {todo.status()}
       </div>
+      <br />
       {!todo.is_done &&
       <button
         className="btn btn-info mb-2"

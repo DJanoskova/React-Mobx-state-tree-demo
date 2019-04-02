@@ -1,52 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { inject } from 'mobx-react';
 
-class TodoForm extends React.Component {
-  handleSubmit = e => {
+const TodoForm = ({ handleTodoAdd }) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    details: ''
+  });
+
+  const handleSubmit = e => {
     e.preventDefault();
 
-    const { todoStore } = this.props;
+    handleTodoAdd(formData);
 
-    todoStore.add({
-      name: this.nameInput.value,
-      details: this.detailsInput.value
+    setFormData({
+      name: '',
+      details: ''
     });
-
     e.target.reset();
-    this.nameInput.focus();
   };
 
-  render() {
-    return (
-      <form
-        onSubmit={this.handleSubmit}>
-        <label htmlFor="name">
-          Name
-          <input
-            required
-            className="input"
-            type="text"
-            ref={input => (this.nameInput = input)}
-            id="name"
-          />
-        </label>
-        <label htmlFor="details">
-          Details
-          <input
-            required
-            className="input"
-            type="text"
-            ref={input => (this.detailsInput = input)}
-            id="details"
-          />
-        </label>
-        <button
-          className="btn btn-info mb-2"
-          type="submit">
-          Add
-        </button>
-      </form>
-    );
-  }
-}
+  const handleInputChange = ({ target }) => {
+    const { name, value } = target;
 
-export default TodoForm;
+    setFormData({
+      ...formData,
+      [name]: value
+    })
+  };
+
+  return (
+    <form
+      onSubmit={handleSubmit}>
+      <input type="text" placeholder="name" name="name" onChange={handleInputChange} />
+      <input type="text" placeholder="details" name="details" onChange={handleInputChange} />
+      <button type="submit">
+        Add
+      </button>
+    </form>
+  );
+};
+
+const mapStoreToProps = ({ todoStore }) => {
+  return {
+    handleTodoAdd: todoStore.add
+  };
+};
+
+export default inject(mapStoreToProps)(TodoForm);
